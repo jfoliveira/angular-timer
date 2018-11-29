@@ -1,16 +1,42 @@
-<div>
-    <!--
-  <input type="text" [(ngModel)]="term" placeholder="Enter the amount of time to countdown">
--->
-    <p>Enter the amount of time to countdown</p>
-    <input type="time" min="2:01" [(ngModel)]="startTime" step="1">
-    <div>
-        <span>{{ startTime }}</span>
-    </div>
-    <div>
-      <button (click)="start()">Start</button>
-      <button (click)="stopAndClear()">Stop and Reset</button>
-    </div>
+<div class="container">
+    <form #timerForm="ngForm">
+      <div class="row">
+        <div class="form-group col-lg-2">
+          <label for="timeInput">Start time</label>
+          <input type="time" class="form-control" id="timeInput" name="time"
+            [(ngModel)]="startTime"
+            required
+            min="00:02:01"
+            step="1"
+            #time="ngModel">
+
+
+          <div [hidden]="time.valid" class="alert alert-danger">
+            <div *ngIf="time.errors.required">
+              Time is required.
+            </div>
+            <div *ngIf="time.errors.minlength">
+              Time must be at least 4 characters long.
+            </div>
+            <div *ngIf="!timerForm.valid">
+              Invalid form values
+            </div>
+          </div>
+        </div>
+      </div>
+        <div>
+          <span>{{ time.errors | json }}</span>
+        </div>
+      <button type="button" class="btn btn-default"
+        [disabled]="!time.valid"
+        (click)="start()">Start
+      </button>
+
+      <button type="button" class="btn btn-default"
+        [disabled]="!counting"
+        (click)="stopAndClear(); timerForm.reset()">Stop and Reset
+      </button>
+    </form>
     <div>
         <span>{{ timeDisplay }}</span>
     </div>

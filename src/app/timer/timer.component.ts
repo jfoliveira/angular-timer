@@ -14,6 +14,7 @@ export class TimerComponent implements OnInit {
     remainingSeconds: number;
     startTime: string = '';
     timeDisplay: string;
+    counting: boolean = false;
 
     constructor() {}
 
@@ -73,8 +74,7 @@ export class TimerComponent implements OnInit {
         this.duration = this.convertStartTimeToSeconds();
     }
 
-    reset() {
-        console.log('reset timer clicked: ', this.startTime);
+    clear() {
         this.startTime = '';
         this.timeDisplay = '';
     }
@@ -84,6 +84,7 @@ export class TimerComponent implements OnInit {
         if (this.duration <= 0) {
             return;
         }
+        this.counting = true;
         this.intervalHandler = setInterval(() => {
             this.onTimerInterval()
         }, 1000);
@@ -91,10 +92,11 @@ export class TimerComponent implements OnInit {
 
     stop() {
         clearInterval(this.intervalHandler)
+        this.counting = false;
     }
 
     stopAndClear() {
         this.stop();
-        this.reset();
+        this.clear();
     }
 }
