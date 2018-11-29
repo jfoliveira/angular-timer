@@ -1,0 +1,17 @@
+<div>
+    <!--
+  <input type="text" [(ngModel)]="term" placeholder="Enter the amount of time to countdown">
+-->
+    <p>Enter the amount of time to countdown</p>
+    <input type="time" min="2:01" [(ngModel)]="startTime" step="1">
+    <div>
+        <span>{{ startTime }}</span>
+    </div>
+    <div>
+      <button (click)="start()">Start</button>
+      <button (click)="stopAndClear()">Stop and Reset</button>
+    </div>
+    <div>
+        <span>{{ timeDisplay }}</span>
+    </div>
+</div>
